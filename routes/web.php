@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/hellow', function () {
+    dd(env('DB_USERNAME', 'wrong'));
+});
