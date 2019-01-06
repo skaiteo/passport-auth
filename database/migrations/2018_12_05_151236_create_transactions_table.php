@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->string('passport_id');
             $table->unsignedInteger('sender_id');
             $table->unsignedInteger('receiver_id');
+            $table->boolean('received')->nullable()->default(false);
             $table->string('attachments')->nullable();
             $table->timestamps();
         });

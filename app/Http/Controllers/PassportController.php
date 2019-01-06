@@ -16,16 +16,8 @@ class PassportController extends Controller
     public function index()
     {
         return Passport::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // return auth()->user()->passports;
+        // return Passport::where('user_id', '=', auth()->user()->id)->get();
     }
 
     /**
@@ -61,20 +53,9 @@ class PassportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Passport $passport)
     {
-        return Passport::find($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $passport;
     }
 
     /**

@@ -26,19 +26,20 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'passport_id' => 'required|string',
-            'sender_id' => 'required|string',
-            'receiver_id' =>  'required|string',
-            'send_date' =>  'required|string',
+            'passport_id' => 'required|integer',
+            'receiver_id' =>  'required|integer',
             'attachments' =>  'string'
         ]);
+        
+        $user = auth()->user();
+        $validated['sender_id'] = ($user) ? $user->id : 0; //if not authenticated, then id = 0
 
         $transaction = new Transaction($validated);
 
         $transaction->save();
-
+        
         return response()->json([
-            'message' => 'Successfully created transaction!'
+            'message' => 'Successfully created transaction!',
         ], 201);
     }
 
@@ -62,15 +63,12 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        $validated = $request->validate([
-            'passport_id' => 'required|string',
-            'sender_id' => 'required|string',
-            'receiver_id' =>  'required|string',
-            'sent_date' =>  'required|string',
-            'attachments' =>  'string'
-        ]);
+        // $validated = $request->validate([
+        //     'sender_id' => 'required|string'
+        // ]);
 
-        $transaction->update($validated);
+        // $transaction->update($validated);
+        $transaction->update(["received" => 1]);
 
         return response()->json([
             'message' => 'Successfully updated transaction!'

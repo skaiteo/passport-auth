@@ -10,4 +10,6 @@ class Transaction extends Model
     {
         return $this->belongsTo(Passport::class);
     }
+
+    protected $guarded = [];
 }

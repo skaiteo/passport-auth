@@ -22,6 +22,7 @@ class CreatePassportsTable extends Migration
             $table->date('d_o_b');
             $table->string('gender');
             $table->date('expiry_date');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

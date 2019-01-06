@@ -27,4 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function passports()
+    {
+        return $this->hasMany(Passport::class);
+    }
+
 }

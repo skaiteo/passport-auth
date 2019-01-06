@@ -27,23 +27,19 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-// Route::group(['prefix' => 'passport'], function () {
-//     Route::group(['middleware' => 'auth:api'], function() {
-//         Route::post('create', 'PassportController@create');
-//         Route::get('index', 'PassportController@index');
-//         Route::post('delete', 'PassportController@delete');
-//     });
-// });
+//storing the APIs in this variable to be used later
+$resourceAPIs = function () {
+    // Route::apiResources([
+    //     'passports' => 'PassportController',
+    //     'transactions' => 'TransactionController'
+    // ]);
 
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::apiResources([
-        'passports' => 'PassportController',
-        'transactions' => 'TransactionController'
-    ]);
+    Route::apiResource('passports', 'PassportController');
+    Route::apiResource('transactions', 'TransactionController');
     
     Route::post('users/search', 'AuthController@search');
-});
+};
 
-Route::group(['prefix' => 'no-auth'], function () {
-    Route::post('users/search', 'AuthController@search');
-});
+Route::group(['middleware' => ['auth:api']], $resourceAPIs);
+
+Route::group(['prefix' => 'no-auth'], $resourceAPIs);
