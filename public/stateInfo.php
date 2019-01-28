@@ -1,1 +1,1 @@
-<?php dd(parse_url(getenv("DATABASE_URL")); ?>
+<?php dd(parse_url(getenv("DATABASE_URL"))); ?>
