@@ -52,7 +52,7 @@
             "@php artisan package:discover --ansi"
         ],
         "compile": [
-            "chmod -R 777 storage/oauth-*.key"
+            "chmod -R 777 storage/oauth-private.key"
         ]
     },
     "config": {
