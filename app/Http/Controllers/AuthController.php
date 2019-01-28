@@ -120,7 +120,7 @@ class AuthController extends Controller
         $key = $request->keyword;
 
         return User::select('id', 'username', 'company_name')
-            ->where('username', 'like', '%'.$key.'%')
+            ->where('username', 'ilike', '%'.$key.'%')
             ->get();
     }
 }
