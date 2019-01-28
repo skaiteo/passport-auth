@@ -38,6 +38,28 @@ class PassportController extends Controller
             'expiry_date' =>  'required|string'
         ]);
 
+        // Adding 2 year digits for d_o_b
+        $yob = substr($request->d_o_b, 0, 2);
+        if ($yob > date("y")) {  //bigger than current 2-year digit
+            $validated['d_o_b'] = 19 . $validated['d_o_b'];
+        } else {
+            $validated['d_o_b'] = 20 . $validated['d_o_b'];
+        }
+        
+        // Adding 2 year digits for expiry_date
+        $validated['expiry_date'] = 20 . $validated['expiry_date'];
+        // $expiryYear = substr($request->expiry_date, 0, 2);
+        // if ($expiryYear > date("y")) {  //bigger than current 2-year digit
+        //     $validated['expiry_date'] = 19 . $validated['expiry_date'];
+        // } else {
+        //     $validated['expiry_date'] = 20 . $validated['expiry_date'];
+        // }
+        
+
+        //Adding user id
+        $user = auth()->user();
+        $validated['user_id'] = ($user) ? $user->id : 0; //if not authenticated, then id = 0
+
         $passport = new Passport($validated);
 
         $passport->save();
