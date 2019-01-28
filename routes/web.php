@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hellow', function () {
-    dd(env('DB_USERNAME', 'wrong'));
+Route::get('passports', function () {
+    return view('passports', [
+        'passports' => App\Passport::all()
+    ]);
+});
+
+Route::get('transactions', function () {
+    return view('transactions', [
+        'transactions' => App\Transaction::all()
+    ]);
 });
