@@ -18,7 +18,3 @@ Route::get('/', function () {
 Route::get('/hellow', function () {
     dd(env('DB_USERNAME', 'wrong'));
 });
-
-Route::get('/info', function () {
-    return parse_url(getenv("DATABASE_URL"));
-});
