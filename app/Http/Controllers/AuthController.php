@@ -32,14 +32,12 @@ class AuthController extends Controller
         $validated['password'] = bcrypt($validated['password']);
         $validated['phone_number'] = '6'.$validated['phone_number'];
 
+        //Generate Master code
+        if (true) {
+            
+        }
+
         $user = new User($validated);
-
-        // $user = new User([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => bcrypt($request->password)
-        // ]);
-
         $user->save();
 
         return response()->json([
