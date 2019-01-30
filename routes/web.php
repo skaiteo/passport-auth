@@ -16,13 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('passports', function () {
-    return view('passports', [
+    return view('temp.passports', [
         'passports' => App\Passport::all()
     ]);
 });
 
 Route::get('transactions', function () {
-    return view('transactions', [
+    return view('temp.transactions', [
         'transactions' => App\Transaction::all()
     ]);
 });
