@@ -83,7 +83,7 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        $passport->delete();
+        $transaction->delete();
 
         return response()->json([
             'message' => 'Successfully deleted transaction!'
