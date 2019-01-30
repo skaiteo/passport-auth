@@ -26,3 +26,6 @@ Route::get('transactions', function () {
         'transactions' => App\Transaction::all()
     ]);
 });
+
+Route::delete('transactions/{transaction}', 'WebController@deleteTransaction');
+Route::delete('passports/{passport}', 'WebController@deletePassport');

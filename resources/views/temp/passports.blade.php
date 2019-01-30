@@ -15,7 +15,11 @@
         
         thead, td {
             border: 1px solid;
-            padding: 5px
+            padding: 1px 7px 1px 7px;
+        }
+
+        table {
+            margin-left: 5px;
         }
     </style>
     <div class="uper">
@@ -48,7 +52,7 @@
                     <td>{{$passport->created_at}}</td>
                     <td>{{$passport->updated_at}}</td>
                     <td>
-                        <form action="{{ route('passports.destroy', $passport->id)}}" method="post">
+                    <form action="{{ '/passports/' . $passport->id }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger" type="submit">Delete</button>
