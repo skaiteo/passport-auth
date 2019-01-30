@@ -9,6 +9,11 @@
 </head>
 <body>
     <style>
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
         .uper {
             margin-top: 40px;
         }
@@ -22,6 +27,7 @@
             margin-left: 5px;
         }
     </style>
+    <h2>Transactions</h2>
     <div class="uper">
         <table>
             <thead>
