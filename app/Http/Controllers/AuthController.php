@@ -114,15 +114,4 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-    /**
-     * Filter the results of user from given string
-     */
-    public function search(Request $request)
-    {
-        $key = $request->keyword;
-
-        return User::select('id', 'username', 'company_name')
-            ->where('username', 'ilike', '%'.$key.'%')
-            ->get();
-    }
 }
