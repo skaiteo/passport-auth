@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('startAdminer.php');
 });
 
 Route::get('/passports', function () {
@@ -29,3 +29,7 @@ Route::get('/transactions', function () {
 
 Route::delete('/transactions/{transaction}', 'WebController@deleteTransaction');
 Route::delete('/passports/{passport}', 'WebController@deletePassport');
+
+// Route::get('/adminer', function () {
+//     return redirect('startAdminer.php');
+// });
