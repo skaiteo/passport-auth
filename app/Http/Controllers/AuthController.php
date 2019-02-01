@@ -20,7 +20,8 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
-        $request->phone_number = '6' . $request->phone_number;
+        $request->phone_number = '6' . $request->phone_number; //add a '6' in front of the phone number
+
         $validated = $request->validate([
             'username' => 'required|string',
             'company_name' => 'string',
@@ -31,7 +32,6 @@ class AuthController extends Controller
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
-        // $validated['phone_number'] = '6'.$validated['phone_number'];
 
         //Generate master code
         do {
