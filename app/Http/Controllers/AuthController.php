@@ -32,10 +32,13 @@ class AuthController extends Controller
         $validated['password'] = bcrypt($validated['password']);
         $validated['phone_number'] = '6'.$validated['phone_number'];
 
-        //Generate Master code
-        if (true) {
-            
-        }
+        //Generate master code
+        do {
+            $mCode = str_random(6);
+            $codeExists = User::where('master_code', $mCode)->exists();
+        } while ($codeExists);
+
+        $validated['master_code'] = $mCode;
 
         $user = new User($validated);
         $user->save();
