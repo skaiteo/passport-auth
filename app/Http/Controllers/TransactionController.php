@@ -89,4 +89,26 @@ class TransactionController extends Controller
             'message' => 'Successfully deleted transaction!'
         ]);
     }
+
+    /**
+     * Consolidated massive data return
+     */
+    public function massiveReturn() {
+        // $uID = auth()->user()->id;
+        $uID = 3;
+        $transactions = Transaction::select('transactions.id as id', 'passports.id as passport_id', 'sender_id', 'username as sender_name', 'attachments', 'received', 'receiver_id')
+                                ->where('sender_id', $uID)
+                                ->orWhere('receiver_id', $uID)
+                                ->join('passports', 'transactions.passport_id', '=', 'passports.id')
+                                ->join('users', 'transactions.sender_id', '=', 'users.id')
+                                ->orderBy('id')
+                                ->get();
+
+        foreach ($transactions as $transaction) {
+            $receiverName = \App\User::find($transaction->receiver_id)->username;
+            $transaction->receiver_name = $receiverName;
+        }
+        
+        return $transactions;
+    }
 }
