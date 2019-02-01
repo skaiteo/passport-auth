@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+/**
+ * The auth-related APIs
+ */
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
@@ -27,7 +30,9 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-//storing the APIs in this variable to be used later
+/**
+ * The resource APIs
+ */
 $resourceAPIs = function () {
     // Route::apiResources([
     //     'passports' => 'PassportController',
@@ -37,9 +42,11 @@ $resourceAPIs = function () {
     Route::apiResource('passports', 'PassportController');
     Route::apiResource('transactions', 'TransactionController');
     
-    Route::post('users/search', 'AuthController@search');
+    Route::post('users/search', 'UserController@search');
 };
 
 Route::group(['middleware' => ['auth:api']], $resourceAPIs);
 
 Route::group(['prefix' => 'no-auth'], $resourceAPIs);
+
+Route::get('massive-transactions', 'TransactionController@massiveReturn');
