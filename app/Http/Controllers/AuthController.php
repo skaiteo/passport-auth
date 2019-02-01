@@ -33,12 +33,12 @@ class AuthController extends Controller
         $validated['phone_number'] = '6'.$validated['phone_number'];
 
         //Generate master code
-        do {
-            $mCode = str_random(6);
-            $codeExists = User::where('master_code', $mCode)->exists();
-        } while ($codeExists);
+        // do {
+        //     $mCode = str_random(6);
+        //     $codeExists = User::where('master_code', $mCode)->exists();
+        // } while ($codeExists);
 
-        $validated['master_code'] = $mCode;
+        // $validated['master_code'] = $mCode;
 
         $user = new User($validated);
         $user->save();
