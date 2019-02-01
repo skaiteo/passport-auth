@@ -15,17 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('passports', function () {
+Route::get('/passports', function () {
     return view('temp.passports', [
         'passports' => App\Passport::all()
     ]);
 });
 
-Route::get('transactions', function () {
+Route::get('/transactions', function () {
     return view('temp.transactions', [
         'transactions' => App\Transaction::all()
     ]);
 });
 
-Route::delete('transactions/{transaction}', 'WebController@deleteTransaction');
-Route::delete('passports/{passport}', 'WebController@deletePassport');
+Route::delete('/transactions/{transaction}', 'WebController@deleteTransaction');
+Route::delete('/passports/{passport}', 'WebController@deletePassport');
