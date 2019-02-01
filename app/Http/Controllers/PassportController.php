@@ -15,7 +15,14 @@ class PassportController extends Controller
      */
     public function index()
     {
-        return Passport::all();
+        $passports = Passport::all();
+
+        foreach ($passports as $passport) {
+            $passport->d_o_b  = substr($passport->d_o_b, 2);
+            $passport->expiry_date  = substr($passport->expiry_date, 2);
+        }
+
+        return $passports;
         // return auth()->user()->passports;
         // return Passport::where('user_id', '=', auth()->user()->id)->get();
     }
@@ -77,6 +84,9 @@ class PassportController extends Controller
      */
     public function show(Passport $passport)
     {
+        $passport->d_o_b  = substr($passport->d_o_b, 2);
+        $passport->expiry_date  = substr($passport->expiry_date, 2);
+        
         return $passport;
     }
 
