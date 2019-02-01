@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('passport_id');
+            $table->unsignedInteger('passport_id');
             $table->unsignedInteger('sender_id');
             $table->unsignedInteger('receiver_id');
             $table->boolean('received')->nullable()->default(false);
