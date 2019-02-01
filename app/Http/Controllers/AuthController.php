@@ -25,7 +25,7 @@ class AuthController extends Controller
             'company_name' => 'string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
-            'phone_number' => 'required|string',
+            'phone_number' => 'required|string|unique:users',
             'd_o_b' => 'required|date'
         ]);
 
