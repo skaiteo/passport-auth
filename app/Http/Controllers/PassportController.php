@@ -65,7 +65,8 @@ class PassportController extends Controller
         $passport->save();
 
         return response()->json([
-            'message' => 'Successfully created passport!'
+            'message' => 'Successfully created passport!',
+            'id' => $passport->id
         ], 201);
     }
 
