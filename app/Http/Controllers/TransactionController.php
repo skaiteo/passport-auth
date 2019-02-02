@@ -95,8 +95,16 @@ class TransactionController extends Controller
      */
     public function massiveReturn() {
         // $uID = auth()->user()->id;
-        $uID = 3;
-        $transactions = Transaction::select('transactions.id as id', 'passports.id as passport_id', 'sender_id', 'username as sender_name', 'attachments', 'received', 'receiver_id')
+        // $user = auth()->user();
+        // $uID = ($user) ? $user->id : request('id'); //if not authenticated, then id = 0
+        if (auth()->check()) {
+            echo 'yeah';
+        } else {
+            echo 'nope';
+        }
+        return;
+        return $uID;
+        $transactions = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received', 'receiver_id')
                                 ->where('sender_id', $uID)
                                 ->orWhere('receiver_id', $uID)
                                 ->join('passports', 'transactions.passport_id', '=', 'passports.id')
