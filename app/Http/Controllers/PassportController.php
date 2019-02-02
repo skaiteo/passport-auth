@@ -55,13 +55,6 @@ class PassportController extends Controller
         
         // Adding 2 year digits for expiry_date
         $validated['expiry_date'] = 20 . $validated['expiry_date'];
-        // $expiryYear = substr($request->expiry_date, 0, 2);
-        // if ($expiryYear > date("y")) {  //bigger than current 2-year digit
-        //     $validated['expiry_date'] = 19 . $validated['expiry_date'];
-        // } else {
-        //     $validated['expiry_date'] = 20 . $validated['expiry_date'];
-        // }
-        
 
         //Adding user id
         $user = auth()->user();
