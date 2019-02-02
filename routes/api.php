@@ -43,10 +43,10 @@ $resourceAPIs = function () {
     Route::apiResource('transactions', 'TransactionController');
     
     Route::post('users/search', 'UserController@search');
+    Route::get('massive-transactions', 'TransactionController@massiveReturn');
 };
 
 Route::group(['middleware' => ['auth:api']], $resourceAPIs);
 
 Route::group(['prefix' => 'no-auth'], $resourceAPIs);
 
-Route::get('massive-transactions', 'TransactionController@massiveReturn');
