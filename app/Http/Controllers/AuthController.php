@@ -20,32 +20,66 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
-        $request->phone_number = '6' . $request->phone_number; //add a '6' in front of the phone number
-
-        $validated = $request->validate([
-            'username' => 'required|string',
-            'company_name' => 'string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed',
-            'phone_number' => 'required|string|unique:users',
-            'd_o_b' => 'required|date'
+        // $request->phone_number = '6' . $request->phone_number; //add a '6' in front of the phone number
+        $data = $request->validate([
+            'phone_number' => 'required|string'
         ]);
+        // return array($data, $request->phone_number);
+        
+        // $phNum = $request->validate([
+        //     'phone_number' => 'required|string'
+        // ]);
+        $user = User::where('phone_number', $request->phone_number)->first();
+        $notGhost = isset($user->email);
+        $newID;
 
-        $validated['password'] = bcrypt($validated['password']);
+        // return isset($user)? 'found user' : 'user not found';
 
-        //Generate master code
-        do {
-            $mCode = str_random(6);
-            $codeExists = User::where('master_code', $mCode)->exists();
-        } while ($codeExists);
+        if ($request->has('email')) { //when there's extra info given
+            if (isset($user) && $notGhost) {
+                $request->validate([
+                    'phone_number' => 'required|string|unique:users' // just to trigger the "phone number taken error
+                ]);
+            }
+            $extraInfo = $this->doValidation($request); //array_merge($extraInfo, $this->doValidation($request));
+            $extraInfo['password'] = bcrypt($extraInfo['password']); //brcrypt password
 
-        $validated['master_code'] = $mCode;
+            // $validated = array_merge($validated, $extraInfo); //add extraInfo to the lonely phone number
+    
+            //Generate master code
+            if ($request->has('master_code')) { //determine if no master code is given
+                // Find the master from the code and assign it to the "master" attribute
+            } else {
+                do {
+                    $mCode = str_random(6);
+                    $codeExists = User::where('master_code', $mCode)->exists();
+                } while ($codeExists);
+    
+                $extraInfo['master_code'] = $mCode;
+            }
 
-        $user = new User($validated);
-        $user->save();
+            $newID = User::updateOrCreate($data, $extraInfo)->id;
+        }
+        else { //this is when there's no extra info
+            if (isset($user)) {
+                $newID = $user->id;
+            } else {
+                $newID = User::create($data)->id;
+            }
+        }
+
+        // return (isset($extraInfo)) ? 'true' : 'false';
+
+        // $user = isset($extraInfo) ?
+        //     User::updateOrCreate($phNum, $extraInfo) :
+        //     User::updateOrCreate($phNum);
+
+        // $user = new User($validated);
+        // $user->save();
 
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully created user!',
+            'id' => $newID
         ], 201);
     }
   
@@ -114,4 +148,21 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
+    public function doValidation($request) 
+    {
+        return $request->validate([
+            'username' => 'required|string',
+            'company_name' => 'string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|confirmed',
+            'd_o_b' => 'required|date',
+            'master_code' => 'string'
+        ]);
+    }
+
+    // public function handleNew($request) {
+    //     $extraInfo = 
+
+    //     return $extraInfo;
+    // }
 }
