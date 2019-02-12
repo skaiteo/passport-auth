@@ -11,7 +11,7 @@
     <style>
         h2 {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 10px;
         }
 
         .uper {
