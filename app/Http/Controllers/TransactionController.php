@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $uID = $user->id ?: request('id');
+        $uID = ($user->id) ?: request('id');
         
         $transactions = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received', 'receiver_id')
                                 ->where('sender_id', $uID)
