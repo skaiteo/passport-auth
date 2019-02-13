@@ -17,20 +17,26 @@ class TransactionController extends Controller
         $user = auth()->user();
         $uID = $user ? $user->id : request('id');
         
-        $transactions = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received', 'receiver_id')
-                                ->where('sender_id', $uID)
-                                ->orWhere('receiver_id', $uID)
+        $received = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received')
+                                ->where('receiver_id', $uID)
                                 ->join('passports', 'transactions.passport_id', '=', 'passports.id')
                                 ->join('users', 'transactions.sender_id', '=', 'users.id')
                                 ->orderBy('id')
                                 ->get();
 
-        foreach ($transactions as $transaction) {
-            $receiverName = \App\User::find($transaction->receiver_id)->username;
-            $transaction->receiver_name = $receiverName;
-        }
+        $sent = Transaction::select('transactions.id as id', 'receiver_id', 'username as receiver_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received')
+                            ->where('sender_id', $uID)
+                            ->join('passports', 'transactions.passport_id', '=', 'passports.id')
+                            ->join('users', 'transactions.sender_id', '=', 'users.id')
+                            ->orderBy('id')
+                            ->get();
+
+        // foreach ($transactions as $transaction) {
+        //     $receiverName = \App\User::find($transaction->receiver_id)->username;
+        //     $transaction->receiver_name = $receiverName;
+        // }
         
-        return $transactions;
+        return array('received' => $received, 'sent' => $sent);
     }
 
     /**
