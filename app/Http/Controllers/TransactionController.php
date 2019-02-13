@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
+use App\Passport;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -36,7 +37,8 @@ class TransactionController extends Controller
         //     $transaction->receiver_name = $receiverName;
         // }
         
-        return array('received' => $received, 'sent' => $sent);
+        // return array('received' => $received, 'sent' => $sent);
+        return $received;
     }
 
     /**
@@ -56,9 +58,13 @@ class TransactionController extends Controller
         $user = auth()->user();
         $validated['sender_id'] = ($user) ? $user->id : 0; //if not authenticated, then id = 0
 
-        $transaction = new Transaction($validated);
+        // $transaction = new Transaction($validated);
+        // $transaction->save();
+        Transaction::create($validated);
 
-        $transaction->save();
+        $passport = Passport::find($validated['passport_id']);
+        $passport->user_id = $user->id;
+        $passport->save();
         
         return response()->json([
             'message' => 'Successfully created transaction!',
