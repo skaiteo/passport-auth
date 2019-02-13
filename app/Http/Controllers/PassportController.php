@@ -15,10 +15,12 @@ class PassportController extends Controller
      */
     public function index()
     {
-        $passports = Passport::all();
+        // $passports = Passport::all();
+        $user = auth()->user();        
+        $passports = $user->passports;
 
         foreach ($passports as $passport) {
-            $passport->d_o_b  = substr($passport->d_o_b, 2);
+            $passport->d_o_b = substr($passport->d_o_b, 2);
             $passport->expiry_date  = substr($passport->expiry_date, 2);
         }
 
