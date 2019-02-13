@@ -63,7 +63,7 @@ class TransactionController extends Controller
         Transaction::create($validated);
 
         $passport = Passport::find($validated['passport_id']);
-        $passport->user_id = $user->id;
+        $passport->user_id = $validated['receiver_id'];
         $passport->save();
         
         return response()->json([
