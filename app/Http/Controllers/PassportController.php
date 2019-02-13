@@ -37,34 +37,37 @@ class PassportController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'passport_num' =>  'required|string|unique:passports',
-            'country' =>  'required|string',
-            'd_o_b' =>  'required|string',
-            'gender' =>  'required|string',
-            'expiry_date' =>  'required|string'
-        ]);
+        $ppNum = $request->passport_num;
+        $passport = Passport::where('passport_num', $ppNum)->first();
+        if (! $passport) {
+            $validated = $request->validate([
+                'firstname' => 'required|string',
+                'lastname' => 'required|string',
+                'passport_num' =>  'required|string|unique:passports',
+                'country' =>  'required|string',
+                'd_o_b' =>  'required|string',
+                'gender' =>  'required|string',
+                'expiry_date' =>  'required|string'
+            ]);
 
-        // Adding 2 year digits for d_o_b
-        $yob = substr($request->d_o_b, 0, 2);
-        if ($yob > date("y")) {  //bigger than current 2-year digit
-            $validated['d_o_b'] = 19 . $validated['d_o_b'];
-        } else {
-            $validated['d_o_b'] = 20 . $validated['d_o_b'];
+            // Adding 2 year digits for d_o_b
+            $yob = substr($request->d_o_b, 0, 2);
+            if ($yob > date("y")) {  //bigger than current 2-year digit
+                $validated['d_o_b'] = 19 . $validated['d_o_b'];
+            } else {
+                $validated['d_o_b'] = 20 . $validated['d_o_b'];
+            }
+            
+            // Adding 2 year digits for expiry_date
+            $validated['expiry_date'] = 20 . $validated['expiry_date'];
+
+            //Adding user id
+            $user = auth()->user();
+            $validated['user_id'] = ($user) ? $user->id : 0; //if not authenticated, then id = 0
+
+            $passport = new Passport($validated);
+            $passport->save();
         }
-        
-        // Adding 2 year digits for expiry_date
-        $validated['expiry_date'] = 20 . $validated['expiry_date'];
-
-        //Adding user id
-        $user = auth()->user();
-        $validated['user_id'] = ($user) ? $user->id : 0; //if not authenticated, then id = 0
-
-        $passport = new Passport($validated);
-
-        $passport->save();
 
         return response()->json([
             'message' => 'Successfully created passport!',
