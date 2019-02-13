@@ -96,7 +96,7 @@ class TransactionController extends Controller
         // ]);
 
         // $transaction->update($validated);
-        $transaction->update(["received" => 1]);
+        $transaction->update(["received" => true]);
 
         return response()->json([
             'message' => 'Successfully updated transaction!'
@@ -118,25 +118,25 @@ class TransactionController extends Controller
         ]);
     }
 
-    /**
-     * Consolidated massive data return
-     */
-    public function massiveReturn() {
-        $uID = request('id') ?: 1;
-        // return $uID;
-        $transactions = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received', 'receiver_id')
-                                ->where('sender_id', $uID)
-                                ->orWhere('receiver_id', $uID)
-                                ->join('passports', 'transactions.passport_id', '=', 'passports.id')
-                                ->join('users', 'transactions.sender_id', '=', 'users.id')
-                                ->orderBy('id')
-                                ->get();
+    // /**
+    //  * Consolidated massive data return
+    //  */
+    // public function massiveReturn() {
+    //     $uID = request('id') ?: 1;
+    //     // return $uID;
+    //     $transactions = Transaction::select('transactions.id as id', 'sender_id', 'username as sender_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received', 'receiver_id')
+    //                             ->where('sender_id', $uID)
+    //                             ->orWhere('receiver_id', $uID)
+    //                             ->join('passports', 'transactions.passport_id', '=', 'passports.id')
+    //                             ->join('users', 'transactions.sender_id', '=', 'users.id')
+    //                             ->orderBy('id')
+    //                             ->get();
 
-        foreach ($transactions as $transaction) {
-            $receiverName = \App\User::find($transaction->receiver_id)->username;
-            $transaction->receiver_name = $receiverName;
-        }
+    //     foreach ($transactions as $transaction) {
+    //         $receiverName = \App\User::find($transaction->receiver_id)->username;
+    //         $transaction->receiver_name = $receiverName;
+    //     }
         
-        return $transactions;
-    }
+    //     return $transactions;
+    // }
 }
