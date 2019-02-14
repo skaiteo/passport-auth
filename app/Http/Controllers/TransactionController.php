@@ -28,7 +28,7 @@ class TransactionController extends Controller
         $sent = Transaction::select('transactions.id as id', 'receiver_id', 'username as receiver_name', 'passports.id as passport_id', 'passport_num', 'firstname', 'lastname', 'attachments', 'received')
                             ->where('sender_id', $uID)
                             ->join('passports', 'transactions.passport_id', '=', 'passports.id')
-                            ->join('users', 'transactions.sender_id', '=', 'users.id')
+                            ->join('users', 'transactions.receiver_id', '=', 'users.id')
                             ->orderBy('id')
                             ->get();
 
