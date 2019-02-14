@@ -37,8 +37,8 @@ class TransactionController extends Controller
         //     $transaction->receiver_name = $receiverName;
         // }
         
-        // return array('received' => $received, 'sent' => $sent);
-        return $received;
+        return array('received' => $received, 'sent' => $sent);
+        // return $received;
     }
 
     /**
