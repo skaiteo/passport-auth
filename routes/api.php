@@ -51,8 +51,6 @@ Route::group(['middleware' => ['auth:api']], $resourceAPIs);
 Route::group(['prefix' => 'no-auth'], $resourceAPIs);
 
 Route::post('test-image', function () {
-    return request();
-    
     $path = request()->file('image')->store('attachments');
     return asset('storage/' . $path);
 });
