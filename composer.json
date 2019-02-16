@@ -51,7 +51,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-install-cmd": [ 
+        "post-install-cmd": [
+            "chmod -R 777 storage"
         ]
     },
     "config": {
