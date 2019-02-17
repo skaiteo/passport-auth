@@ -52,7 +52,6 @@ Route::group(['prefix' => 'no-auth'], $resourceAPIs);
 
 Route::post('test-image', function () {
     $image_name = request()->file('image')->getRealPath();
-    return $image_name;
     JD\Cloudder\Facades\Cloudder::upload($image_name, null);
 
     list($width, $height) = getimagesize($image_name);
