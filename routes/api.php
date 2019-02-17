@@ -51,6 +51,11 @@ Route::group(['middleware' => ['auth:api']], $resourceAPIs);
 Route::group(['prefix' => 'no-auth'], $resourceAPIs);
 
 Route::post('test-image', function () {
-    $path = request()->file('image')->store('attachments');
-    return asset('storage/' . $path);
+    $image_name = request()->file('image')->getRealPath();;
+    JD\Cloudder\Facades\Cloudder::upload($image_name, null);
+
+    list($width, $height) = getimagesize($image_name);
+    $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+
+    return $image_url;
 });
