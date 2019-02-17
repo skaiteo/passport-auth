@@ -57,5 +57,8 @@ Route::post('test-image', function () {
     list($width, $height) = getimagesize($image_name);
     $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
 
-    return $image_url;
+    return response()->json([
+        'message' => 'Succesfully uploaded file!',
+        'url' => $image_url
+    ], 201);
 });
