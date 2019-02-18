@@ -1,6 +1,6 @@
 import sys
 import json
-#from passporteye import read_mrz
+from passporteye import read_mrz
 
 #Obtain Image from the argument
 image_file = sys.argv[1]   
