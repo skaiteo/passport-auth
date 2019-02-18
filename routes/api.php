@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,13 @@ Route::post('test-image', function () {
         'message' => 'Succesfully uploaded file!',
         'url' => $image_url
     ], 201);
+});
+
+Route::post('test-ocr', function () {
+    $image = request()->file('image')->getRealPath();
+    echo (new TesseractOCR($image))->run();
+});
+
+Route::get('test-python', function () {
+   echo shell_exec("python");
 });
