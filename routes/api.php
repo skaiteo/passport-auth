@@ -69,6 +69,7 @@ Route::post('test-ocr', function () {
     echo (new TesseractOCR($image))->run();
 });
 
-Route::get('test-python', function () {
-    echo shell_exec("python mrzTest.py '1.jpg'");
+Route::post('test-python', function () {
+    $image = request()->file('image')->getRealPath();
+    echo shell_exec("python mrzTest.py $image");
 });
