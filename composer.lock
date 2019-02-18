@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccf67c54583989de20101c5466a0aa89",
+    "content-hash": "444f48c91e4a5f0cddba93082cbf3df6",
     "packages": [
         {
             "name": "cloudinary/cloudinary_php",
@@ -3628,6 +3628,51 @@
                 "dump"
             ],
             "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "thiagoalessio/tesseract_ocr",
+            "version": "2.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
+                "reference": "b369b5496b6e809d012aacf06cbf2db5f6b29f76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/b369b5496b6e809d012aacf06cbf2db5f6b29f76",
+                "reference": "b369b5496b6e809d012aacf06cbf2db5f6b29f76",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0"
+            },
+            "require-dev": {
+                "codacy/coverage": "dev-master",
+                "phpunit/php-code-coverage": "^2.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "thiagoalessio\\TesseractOCR\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thiagoalessio",
+                    "email": "thiagoalessio@me.com"
+                }
+            ],
+            "description": "A wrapper to work with Tesseract OCR inside PHP.",
+            "keywords": [
+                "OCR",
+                "Tesseract",
+                "text recognition"
+            ],
+            "time": "2019-01-30T19:47:33+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
