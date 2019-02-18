@@ -70,5 +70,5 @@ Route::post('test-ocr', function () {
 });
 
 Route::get('test-python', function () {
-   echo shell_exec("python mrzTest.py 1.jpg");
+   echo shell_exec("ls");
 });
