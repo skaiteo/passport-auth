@@ -3,8 +3,8 @@ import json
 from passporteye import read_mrz
 
 #Obtain Image from the argument
-image_name = sys.argv[1]   
-image_file = open(image_name)
+image_file = sys.argv[1]
+# image_file = open(image_name)
 # print(image_file)
 #Pass image into Read_MRZ functionality and store inside MRZ Variable
 mrz = read_mrz(image_file)
