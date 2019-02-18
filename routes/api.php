@@ -71,6 +71,6 @@ Route::post('test-ocr', function () {
 
 Route::post('test-python', function () {
     $image = request()->file('image')->getRealPath();
-    $result = shell_exec("python mrzTest.py $image");
+    $result = shell_exec("python --version");
     print_r($result);
 });
