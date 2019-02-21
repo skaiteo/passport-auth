@@ -83,7 +83,7 @@ Route::post('test-python', function () {
 
     list($width, $height) = getimagesize($image_name);
     $image_url = Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
-    return $image_url;
+    // return $image_url;
 
     $result = shell_exec("python mrzTest.py $image_url");
     return $result;
