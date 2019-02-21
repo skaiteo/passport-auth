@@ -79,7 +79,7 @@ Route::post('test-image', function () {
 
 Route::post('test-python', function () {
     $image_name = request()->file('image')->getRealPath();
-    JD\Cloudder\Facades\Cloudder::upload('temp/' . $image_name, null);
+    JD\Cloudder\Facades\Cloudder::upload($image_name, null);
 
     list($width, $height) = getimagesize($image_name);
     $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
