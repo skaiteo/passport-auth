@@ -41,14 +41,15 @@ class AuthController extends Controller
                     'phone_number' => 'required|string|unique:users' // just to trigger the "phone number taken error
                 ]);
             }
-            $extraInfo = $this->doValidation($request); //array_merge($extraInfo, $this->doValidation($request));
+            $extraInfo = $this->doValidation($request);
             $extraInfo['password'] = bcrypt($extraInfo['password']); //brcrypt password
 
             // $validated = array_merge($validated, $extraInfo); //add extraInfo to the lonely phone number
     
             //Generate master code
-            if ($request->has('master_code')) { //determine if no master code is given
-                // Find the master from the code and assign it to the "master" attribute
+            if ($request->has('master_code')) { //determine if master code is given
+                $extraInfo['master_id'] = User::where('master_code', request('master_code'))->first()->id;
+                $extraInfo['master_code'] = null;
             } else {
                 do {
                     $mCode = str_random(6);

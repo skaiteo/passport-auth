@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique();
             $table->date('d_o_b')->nullable();
             $table->string('master_code')->nullable()->unique();
+            $table->unsignedInteger('master_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

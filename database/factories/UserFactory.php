@@ -25,6 +25,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'phone_number' => '01' . $faker->randomNumber(8, true),
         'd_o_b' => $faker->date,
         'master_code' => str_random(6),
+        'master_id' => 4,
         'remember_token' => str_random(10),
     ];
 });

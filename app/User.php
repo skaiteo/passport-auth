@@ -32,4 +32,13 @@ class User extends Authenticatable
         return $this->hasMany(Passport::class);
     }
 
+    public function slaves()
+    {
+        return $this->hasMany(User::class, 'master_id');
+    }
+
+    public function master()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
