@@ -78,12 +78,12 @@ Route::post('test-image', function () {
 // });
 
 Route::post('test-python', function () {
-    // $image_name = request()->file('image')->getRealPath();
-    // JD\Cloudder\Facades\Cloudder::upload($image_name, null);
+    $image_name = request()->file('image')->getRealPath();
+    JD\Cloudder\Facades\Cloudder::upload($image_name, null);
 
-    // list($width, $height) = getimagesize($image_name);
-    // $image_url = Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+    list($width, $height) = getimagesize($image_name);
+    $image_url = Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
     // return $image;
-    $result = shell_exec("python mrzTest.py");
+    $result = shell_exec("python mrzTest.py $image_url");
     return $result;
 });

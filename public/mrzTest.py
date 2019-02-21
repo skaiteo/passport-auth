@@ -3,7 +3,7 @@ import json
 from passporteye import read_mrz
 
 #Obtain Image from the argument
-image_file = "https://res.cloudinary.com/twicedev/image/upload/v1550731435/qrwox5ocg5tqjxruk3w7.jpg"
+image_file = sys.argv[1]
 # print(image_file)
 #Pass image into Read_MRZ functionality and store inside MRZ Variable
 mrz = read_mrz(image_file)
