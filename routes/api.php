@@ -43,16 +43,13 @@ $resourceAPIs = function () {
     Route::apiResource('passports', 'PassportController');
     Route::apiResource('transactions', 'TransactionController');
     
-    Route::post('users/search', 'UserController@search');
-    Route::get('massive-transactions', 'TransactionController@massiveReturn');
-
-    Route::get('see-master', function() {
-        return auth()->user()->master;
+    Route::group(['prefix' => 'users'], function() {
+        Route::post('search', 'UserController@search');
+        Route::get('master', 'UserController@getMaster');
+        Route::get('slaves', 'UserController@getSlaves');
     });
 
-    Route::get('see-slaves', function() {
-        return auth()->user()->slaves;
-    });
+    // Route::get('massive-transactions', 'TransactionController@massiveReturn');
 };
 
 Route::group(['middleware' => ['auth:api']], $resourceAPIs);

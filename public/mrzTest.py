@@ -16,6 +16,6 @@ mrz_data = mrz.to_dict()
 jsonvalue = json.dumps(mrz_data)
 
 #Prints the JSON VALUE for PHP
-print(jsonvalue)
+print("random String")
 
 #I didnt use return because non of this code is inside a class or a method
