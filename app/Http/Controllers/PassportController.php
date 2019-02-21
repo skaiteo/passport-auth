@@ -16,7 +16,7 @@ class PassportController extends Controller
     public function index()
     {
         // $passports = Passport::all();
-        $user = auth()->user();        
+        $user = auth()->user();
         $passports = $user->passports;
 
         foreach ($passports as $passport) {
@@ -25,8 +25,6 @@ class PassportController extends Controller
         }
 
         return $passports;
-        // return auth()->user()->passports;
-        // return Passport::where('user_id', '=', auth()->user()->id)->get();
     }
 
     /**
@@ -127,7 +125,8 @@ class PassportController extends Controller
      */
     public function destroy(Passport $passport)
     {
-        $passport->delete();
+        $passport->user_id = null;
+        $passport->save();
 
         return response()->json([
             'message' => 'Successfully deleted passport!'
