@@ -15,21 +15,14 @@ Route::get('/', function () {
     return redirect('startAdminer.php');
 });
 
-// Route::get('/passports', function () {
-//     return view('temp.passports', [
-//         'passports' => App\Passport::all()
-//     ]);
-// });
+Route::get('/fpdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
+    $fpdf->AddPage();
+    $fpdf->SetFont('Courier', 'B', 18);
+    $fpdf->Image('storage/1.jpg', null, null, -300);
+    $fpdf->Output('D', 'dokumen.pdf');
+});
 
-// Route::get('/transactions', function () {
-//     return view('temp.transactions', [
-//         'transactions' => App\Transaction::all()
-//     ]);
-// });
+// Route::delete('/transactions/{transaction}', 'WebController@deleteTransaction');
+// Route::delete('/passports/{passport}', 'WebController@deletePassport');
 
-Route::delete('/transactions/{transaction}', 'WebController@deleteTransaction');
-Route::delete('/passports/{passport}', 'WebController@deletePassport');
-
-// Route::get('/adminer', function () {
-//     return redirect('startAdminer.php');
-// });
+Auth::routes(['verify' => true]);
