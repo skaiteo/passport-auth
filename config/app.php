@@ -173,7 +173,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        JD\Cloudder\CloudderServiceProvider::class
+        JD\Cloudder\CloudderServiceProvider::class,
+        Codedge\Fpdf\FpdfServiceProvider::class
     ],
 
     /*
@@ -222,7 +223,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Cloudder' => JD\Cloudder\Facades\Cloudder::class
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
+        'Fpdf' => Codedge\Fpdf\FpdfServiceProvider::class
     ],
 
 ];
