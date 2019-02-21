@@ -45,6 +45,14 @@ $resourceAPIs = function () {
     
     Route::post('users/search', 'UserController@search');
     Route::get('massive-transactions', 'TransactionController@massiveReturn');
+
+    Route::get('see-master', function() {
+        return auth()->user()->master;
+    });
+
+    Route::get('see-slaves', function() {
+        return auth()->user()->slaves;
+    });
 };
 
 Route::group(['middleware' => ['auth:api']], $resourceAPIs);
@@ -64,14 +72,14 @@ Route::post('test-image', function () {
     ], 201);
 });
 
-Route::post('test-ocr', function () {
-    $image = request()->file('image')->getRealPath();
-    echo (new TesseractOCR($image))->run();
-});
+// Route::post('test-ocr', function () {
+//     $image = request()->file('image')->getRealPath();
+//     echo (new TesseractOCR($image))->run();
+// });
 
 Route::post('test-python', function () {
-    $image = request()->file('image')->getPathName();
-    return base_path() . $image;
-    $result = shell_exec("python mrzTest.py $image");
-    print_r($result);
+    $image = request()->file('image')->store('temp');
+    // return $image;
+    $result = shell_exec("python mrzTest.py storage/$image");
+    return $result;
 });
