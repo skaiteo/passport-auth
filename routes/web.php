@@ -1,4 +1,5 @@
 <?php
+use App\PeeDeeEff;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,11 @@ Route::get('/', function () {
     return redirect('startAdminer.php');
 });
 
-Route::get('/fpdf', function (Codedge\Fpdf\Fpdf\Fpdf $fpdf) {
-    $fpdf->AddPage();
+Route::get('/fpdf', function (App\PeeDeeEff $fpdf) {
+    $fpdf->AddPage('P', 'A4');
     $fpdf->SetFont('Courier', 'B', 18);
-    $fpdf->Image('storage/1.jpg', null, null, -300);
-    $fpdf->Output('D', 'dokumen.pdf');
+    $fpdf->centreImage('storage/1.jpg', null, null, -300);
+    $fpdf->Output();
 });
 
 // Route::delete('/transactions/{transaction}', 'WebController@deleteTransaction');
